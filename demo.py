@@ -4,6 +4,7 @@
 demo for resize images with configuration.
 """
 import imageio
+from PIL import Image
 
 def create_gif(savename, duration=1):
     frames = []
@@ -14,6 +15,17 @@ def create_gif(savename, duration=1):
     imageio.mimsave(savename, frames, "GIF", duration=duration)
 
 
+def resize_image(sourcepath, savepath, width, height):
+    img = Image.open(sourcepath)
+    oldwidth, oldheight = img.size
+    print(oldwidth, oldheight)
+    # new size 应该是一个元组 
+    resizedImg = img.resize((width, height), Image.ANTIALIAS)
+    resizedImg.save(savepath)
+
+
+
 if __name__ == "__main__":
-    create_gif("test.gif")
-    print("done.")
+    # create_gif("test.gif")
+    # print("done.")
+    resize_image("/tmp/test.jpg", "/tmp/test.resized.jpg", 240, 240)
