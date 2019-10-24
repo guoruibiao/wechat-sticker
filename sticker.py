@@ -2,6 +2,7 @@
 # coding: utf8
 import os
 import json
+import imageio
 from PIL import ImageFont, ImageDraw, Image
 from random import randint
 
@@ -50,6 +51,28 @@ class Sticker(object):
             drawboard.text((x, y), str(text), font=font, fill=self._get_color_value(colors))
             img.save("{}{}{}.{}".format(subdir, os.path.sep, text, formatter))
 
+    def generate_gif(self):
+        """
+        run after self.generate(outputFolder)
+        """
+        for key in self.configs.keys():
+            config = self.getConfigs(key)
+            self._generate_gif_by_config(key, config)
+
+    def _generate_gif_by_config(self, key, config):
+        subdir = self.outputFolder + os.path.sep + "tmp"
+        if not os.path.isdir(subdir):
+            os.mkdir(subdir)
+        frames = []
+        count, formatter = int(config["count"]), str(config["format"]).lower()
+        savename = subdir + os.path.sep + key + ".gif"
+        for index in range(1, count+1):
+            index = "0{}".format(index) if index <10 else "{}".format(index)
+            fullname = self.outputFolder + os.path.sep + key + os.path.sep + str(index) + "." + formatter
+            frames.append(imageio.imread(fullname))
+        imageio.mimsave(savename, frames, "GIF", duration=1.0)
+
+
     def _get_color_value(self, colors=(1, 1, 1)):
         value = "#"
         for color in colors:
@@ -77,4 +100,5 @@ if __name__ == "__main__":
     # print(s.getConfigs("main"))
     s.generate("/tmp")
     # print(s._get_color_value((123, 210, 0)))
+    s.generate_gif()
     s.cleanUp()
