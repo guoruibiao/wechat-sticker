@@ -3,7 +3,7 @@
 import os
 import json
 from PIL import ImageFont, ImageDraw, Image
-
+from random import randint
 
 class Sticker(object):
     """
@@ -40,7 +40,7 @@ class Sticker(object):
             os.mkdir(subdir)
         width, height, count, formatter = int(config["width"]), int(config["height"]), int(config["count"]), str(config["format"]).lower()
         for index in range(1, count+1):
-            size, colors = (width, height), (index**index%256, index**index%256, index**index%256)
+            size, colors = (width, height), (randint(index**index%256, 255), randint(index**index%256, 255), randint(index**index%256, 255))
             img = Image.new("RGBA", size, colors)
             drawboard = ImageDraw.Draw(img)
             fontsize = size[0] // 2
@@ -53,7 +53,11 @@ class Sticker(object):
     def _get_color_value(self, colors=(1, 1, 1)):
         value = "#"
         for color in colors:
-            value += str(hex(255 - color))[2:]
+            tmp = str(hex(255 - color))[2:]
+            if len(tmp) == 1:
+                value += "0" + tmp
+            else:
+                value += tmp
         return value
 
     def cleanUp(self):
