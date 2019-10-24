@@ -48,7 +48,7 @@ class Sticker(object):
             x, y = (size[0] - fontsize), (size[1] - fontsize) // 2
             text = "0{}".format(index) if index <10 else "{}".format(index)
             drawboard.text((x, y), str(text), font=font, fill=self._get_color_value(colors))
-            img.save("{}{}{}.png".format(subdir, os.path.sep, text))
+            img.save("{}{}{}.{}".format(subdir, os.path.sep, text, formatter))
 
     def _get_color_value(self, colors=(1, 1, 1)):
         value = "#"
