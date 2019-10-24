@@ -1,0 +1,37 @@
+{
+  "main": {
+    "width": 240,
+    "height": 240,
+    "format": "GIF",
+    "count": 24,
+    "description": "表情主图16/24张"
+  },
+  "thumbnail": {
+    "width": 120,
+    "height": 120,
+    "format": "PNG",
+    "count": 24,
+    "description": "缩略图 张数对应聊天主图"
+  },
+  "banner": {
+    "width": 750,
+    "height": 400,
+    "format": "PNG",
+    "count": 1,
+    "description": "横幅图"
+  },
+  "cover": {
+    "width": 240,
+    "height": 240,
+    "format": "PNG",
+    "count": 1,
+    "description": "表情封面图"
+  },
+  "icon": {
+    "width": 50,
+    "height": 50,
+    "format":"PNG",
+    "count": 1,
+    "description": "聊天页面表情icon"
+  }
+}
